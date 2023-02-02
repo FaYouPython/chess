@@ -10,7 +10,7 @@ class GameState:
             ['wp', 'wp', 'wp', 'wp', 'wp', 'wp', 'wp', 'wp'],
             ['wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR'],
         ]
-        # self.moveFunction = {'p': self.getPownMoves, 'R': self.getRookMoves, 'N': self.getKnightMoves,
+        self.moveFunction = {'p': self.getPownMoves}  # , 'R': self.getRookMoves, 'N': self.getKnightMoves,
         #                      'B': self.getBishopMoves, 'Q': self.getQueenMoves, 'K': self.getKingMoves}
         self.whiteToMove = True
         self.moveLog = []
@@ -83,9 +83,7 @@ class GameState:
                 turn = self.board[r][c][0]
                 if (turn == 'w' and self.whiteToMove) or (turn == 'b' and not self.whiteToMove):
                     piece = self.board[r][c][1]
-                    if piece == 'p':
-                        self.getPownMoves(r, c, moves)
-        #             self.moveFunction[piece](r, c, moves)
+                    self.moveFunction[piece](r, c, moves)
         return moves
 
     def getPownMoves(self, r, c, moves):
