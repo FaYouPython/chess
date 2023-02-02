@@ -29,84 +29,90 @@ class GameState:
         # elif move.pieceMove == 'bK':
         #     self.whiteKingLocation = (move.endRow, move.endCol)
 
-#     def undoMove(self):
-#         if len(self.moveLog) != 0:
-#             move = self.moveLog.pop()
-#             self.board[move.startRow][move.startCol] = move.pieceMove
-#             self.board[move.endRow][move.endCol] = move.pieceCaptured
-#             self.whiteToMove = not self.whiteToMove
-#             if move.pieceMove == 'wK':
-#                 self.whiteKingLocation = (move.startRow, move.startCol)
-#             elif move.pieceMove == 'bK':
-#                 self.whiteKingLocation = (move.startRow, move.startCol)
-#
-#     def getValidMoves(self):
-#         moves = self.getAllPossibleMoves()
-#         for i in range(len(moves) - 1, -1, -1):
-#             self.makeMove(moves[i])
-#             self.whiteToMove = not self.whiteToMove
-#             if self.inCheck():
-#                 moves.remove(moves[i])
-#             self.whiteToMove = not self.whiteToMove
-#             self.undoMove()
-#         if len(moves) == 0:
-#             if self.inCheck():
-#                 self.checkMate = True
-#             else:
-#                 self.staleMate = True
-#         else:
-#             self.checkMate = False
-#             self.staleMate = False
-#         return moves
-#
-#     def inCheck(self):
-#         if self.whiteToMove:
-#             return self.squareUnderAttack(self.whiteKingLocation[0], self.whiteKingLocation[1])
-#         else:
-#             return self.squareUnderAttack(self.whiteKingLocation[0], self.whiteKingLocation[1])
-#
-#     def squareUnderAttack(self, r, c):
-#         self.whiteToMove = not self.whiteToMove
-#         oppMoves = self.getAllPossibleMoves()
-#         self.whiteToMove = not self.whiteToMove
-#         for move in oppMoves:
-#             if move.endRow == r and move.endCol == c:
-#                 return True
-#         return False
-#
-#     def getAllPossibleMoves(self):
-#         moves = []
-#         for r in range(len(self.board)):
-#             for c in range(len(self.board[r])):
-#                 turn = self.board[r][c][0]
-#                 if (turn == 'w' and self.whiteToMove) or (turn == 'b' and not self.whiteToMove):
-#                     piece = self.board[r][c][1]
-#                     self.moveFunction[piece](r, c, moves)
-#         return moves
-#
-#     def getPownMoves(self, r, c, moves):
-#         if self.whiteToMove:
-#             if self.board[r - 1][c] == '--':
-#                 moves.append(Move((r, c), (r - 1, c), self.board))
-#                 if r == 6 and self.board[r - 2][c] == '--':
-#                     moves.append(Move((r, c), (r - 2, c), self.board))
-#             if c - 1 >= 0:
-#                 if self.board[r - 1][c - 1][0] == 'b':
-#                     moves.append(Move((r, c), (r - 1, c - 1), self.board))
-#             if c + 1 <= 7:
-#                 if self.board[r - 1][c + 1][0] == 'b':
-#                     moves.append(Move((r, c), (r - 1, c + 1), self.board))
-#         else:
-#             if self.board[r + 1][c] == '--':
-#                 moves.append(Move((r, c), (r + 1, c), self.board))
-#                 if self.board[r + 2][c] == '--':
-#                     moves.append(Move((r, c), (r + 2, c), self.board))
-#             if c - 1 >= 0:
-#                 if self.board[r + 1][c - 1][0] == 'w':
-#                     moves.append(Move((r, c), (r + 1, c - 1), self.board))
-#             if r + 1 <= 7 and c + 1 <= 7:
-#                 if self.board[r + 1][c + 1][0] == 'w':
-#                     moves.append(Move((r, c), (r + 1, c + 1), self.board))
+    def undoMove(self):
+        if len(self.moveLog) != 0:
+            move = self.moveLog.pop()
+            self.board[move.startRow][move.startCol] = move.pieceMove
+            self.board[move.endRow][move.endCol] = move.pieceCaptured
+            self.whiteToMove = not self.whiteToMove
+            # if move.pieceMove == 'wK':
+            #     self.whiteKingLocation = (move.startRow, move.startCol)
+            # elif move.pieceMove == 'bK':
+            #     self.whiteKingLocation = (move.startRow, move.startCol)
+
+    def getValidMoves(self):
+        return self.getAllPossibleMoves()
+
+    #         moves = self.getAllPossibleMoves()
+    #         for i in range(len(moves) - 1, -1, -1):
+    #             self.makeMove(moves[i])
+    #             self.whiteToMove = not self.whiteToMove
+    #             if self.inCheck():
+    #                 moves.remove(moves[i])
+    #             self.whiteToMove = not self.whiteToMove
+    #             self.undoMove()
+    #         if len(moves) == 0:
+    #             if self.inCheck():
+    #                 self.checkMate = True
+    #             else:
+    #                 self.staleMate = True
+    #         else:
+    #             self.checkMate = False
+    #             self.staleMate = False
+    #         return moves
+    #
+    #     def inCheck(self):
+    #         if self.whiteToMove:
+    #             return self.squareUnderAttack(self.whiteKingLocation[0], self.whiteKingLocation[1])
+    #         else:
+    #             return self.squareUnderAttack(self.whiteKingLocation[0], self.whiteKingLocation[1])
+    #
+    #     def squareUnderAttack(self, r, c):
+    #         self.whiteToMove = not self.whiteToMove
+    #         oppMoves = self.getAllPossibleMoves()
+    #         self.whiteToMove = not self.whiteToMove
+    #         for move in oppMoves:
+    #             if move.endRow == r and move.endCol == c:
+    #                 return True
+    #         return False
+    #
+    def getAllPossibleMoves(self):
+        moves = []
+        for r in range(len(self.board)):
+            for c in range(len(self.board[r])):
+                turn = self.board[r][c][0]
+                if (turn == 'w' and self.whiteToMove) or (turn == 'b' and not self.whiteToMove):
+                    piece = self.board[r][c][1]
+                    if piece == 'p':
+                        self.getPownMoves(r, c, moves)
+        #             self.moveFunction[piece](r, c, moves)
+        return moves
+
+    def getPownMoves(self, r, c, moves):
+        if self.whiteToMove:
+            if self.board[r - 1][c] == '--':
+                moves.append(Move((r, c), (r - 1, c), self.board))
+                if r == 6 and self.board[r - 2][c] == '--':
+                    moves.append(Move((r, c), (r - 2, c), self.board))
+            if c - 1 >= 0:
+                if self.board[r - 1][c - 1][0] == 'b':
+                    moves.append(Move((r, c), (r - 1, c - 1), self.board))
+            if c + 1 <= 7:
+                if self.board[r - 1][c + 1][0] == 'b':
+                    moves.append(Move((r, c), (r - 1, c + 1), self.board))
+        else:
+            if self.board[r + 1][c] == '--':
+                moves.append(Move((r, c), (r + 1, c), self.board))
+                if r == 1 and self.board[r + 2][c] == '--':
+                    moves.append(Move((r, c), (r + 2, c), self.board))
+            if c - 1 >= 0:
+                if self.board[r + 1][c - 1][0] == 'w':
+                    moves.append(Move((r, c), (r + 1, c - 1), self.board))
+            if r + 1 <= 7 and c + 1 <= 7:
+                if self.board[r + 1][c + 1][0] == 'w':
+                    moves.append(Move((r, c), (r + 1, c + 1), self.board))
+
+
 #
 #     def getRookMoves(self, r, c, moves):
 #         directions = ((-1, 0), (0, -1), (1, 0), (0, 1))
@@ -186,12 +192,12 @@ class Move:
         self.endCol = endSq[1]
         self.pieceMove = board[self.startRow][self.startCol]
         self.pieceCaptured = board[self.endRow][self.endCol]
-#        self.moveID = self.startRow * 1000 + self.startCol * 100 + self.endRow * 10 + self.endCol
+        self.moveID = self.startRow * 1000 + self.startCol * 100 + self.endRow * 10 + self.endCol
 
-    # def __eq__(self, other):
-    #     if isinstance(other, Move):
-    #         return self.moveID == other.moveID
-    #     return False
+    def __eq__(self, other):
+        if isinstance(other, Move):
+            return self.moveID == other.moveID
+        return False
 
     def getChessNotation(self):
         return self.getRankFile(self.startRow, self.startCol) + self.getRankFile(self.endRow, self.endCol)
