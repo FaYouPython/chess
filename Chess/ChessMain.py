@@ -24,36 +24,33 @@ def main():
     #    moveMade = False
     loadImages()
     running = True
-    #    sqSelected = ()
-    #    playerClicks = []
+    sqSelected = ()
+    playerClicks = []
     while running:
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
+            elif e.type == p.MOUSEBUTTONDOWN:
+                location = p.mouse.get_pos()
+                col = location[0] // SQ_SIZE
+                row = location[1] // SQ_SIZE
+                print(row, col)
+                if sqSelected == (row, col):
+                    sqSelected = ()
+                    playerClicks = []
+                else:
+                    sqSelected = (row, col)
+                    playerClicks.append(sqSelected)
+                if len(playerClicks) == 2:
+                    move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
+                    print(move.getChessNotation())
+                    gs.makeMove(move)
+                    sqSelected = ()
+                    playerClicks = []
 
-        #             elif e.type == p.MOUSEBUTTONDOWN:
-        #                 location = p.mouse.get_pos()
-        #                 col = location[0] // SQ_SIZE
-        #                 row = location[1] // SQ_SIZE
-        #                 print(row, col)
-        #
-        #                 if sqSelected == (row, col):
-        #                     sqSelected = ()
-        #                     playerClicks = []
-        #                 else:
-        #                     sqSelected = (row, col)
-        #                     playerClicks.append(sqSelected)
-        #
-        #                 if len(playerClicks) == 2:
-        #                     move = ChessEngine.Move(playerClicks[0], playerClicks[1], gs.board)
-        #                     print(move.getChessNotation())
-        #
         #                     if move in validMoves:
-        #                         gs.makeMove(move)
         #                         moveMade = True
-        #                         sqSelected = ()
-        #                         playerClicks = []
-        #                     else:
+        #                         else:
         #                         playerClicks = [sqSelected]
         #
         #             elif e.type == p.KEYDOWN:
