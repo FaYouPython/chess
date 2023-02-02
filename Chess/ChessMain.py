@@ -34,7 +34,6 @@ def main():
                 location = p.mouse.get_pos()
                 col = location[0] // SQ_SIZE
                 row = location[1] // SQ_SIZE
-                print(row, col)
                 if sqSelected == (row, col):
                     sqSelected = ()
                     playerClicks = []
@@ -47,10 +46,10 @@ def main():
                     if move in validMoves:
                         gs.makeMove(move)
                         moveMade = True
-                    # else:
-                    #     playerClicks = [sqSelected]
-                    sqSelected = ()
-                    playerClicks = []
+                        sqSelected = ()
+                        playerClicks = []
+                    else:
+                        playerClicks = [sqSelected]
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_z:
                     gs.undoMove()
